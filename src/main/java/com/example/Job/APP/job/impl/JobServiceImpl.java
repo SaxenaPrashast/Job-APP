@@ -5,6 +5,7 @@ import com.example.Job.APP.job.JobService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,6 +14,20 @@ public class JobServiceImpl implements JobService {
     private List<Job> jobs = new ArrayList<>();
     private long nextId = 1L;
 
+
+    @Override
+    public boolean deleteJobById(Long id) {
+        Iterator<Job> iterator= jobs.iterator();
+        while(iterator.hasNext()){
+            Job job = iterator.next();
+            if(Objects.equals(job.getId(), id)){
+                iterator.remove();
+                return true;
+
+            }
+        }
+        return false;
+    }
 
     @Override
     public List<Job> findAll() {
