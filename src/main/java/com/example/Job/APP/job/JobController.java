@@ -19,7 +19,8 @@ public class JobController {
 //        return jobService.findAll();
 //    }
 
-    @GetMapping("/jobs")
+//    @GetMapping("/jobs")
+    @RequestMapping(value="/jobs",method = RequestMethod.GET)//can also use request mapping anotation accepts two parameters value(defines address) and method(defines the get post put etc )
     public ResponseEntity<List<Job>> findAll(){
         return ResponseEntity.ok(jobService.findAll());
     }
@@ -60,6 +61,18 @@ public class JobController {
             return new ResponseEntity<>("Job deleted sucessfully",HttpStatus.OK);
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @PutMapping("/jobs/{id}")
+    public ResponseEntity<String> UpdateJob(@PathVariable Long id, @RequestBody Job updatedJob){
+        boolean updated = jobService.updateJob(id,updatedJob);
+        if(updated){
+            return new ResponseEntity<>("Job upadated sucessfully",HttpStatus.OK);
+
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 }
 

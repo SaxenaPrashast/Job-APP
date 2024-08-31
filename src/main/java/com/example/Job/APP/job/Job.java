@@ -1,12 +1,21 @@
 package com.example.Job.APP.job;
 
+import jakarta.persistence.*;
+
+@Entity
+//@Table(name = "job_table")
 public class Job {
+    @Id//it represents every unique id in the job table(primary key)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
     private String description;
     private String minSalary;
     private String maxSalary;
     private String location;
+
+    public Job() {
+    }//default constructor to work with jpa
 
     public Job(String description, long id, String location, String maxSalary, String minSalary, String title) {
         this.description = description;
